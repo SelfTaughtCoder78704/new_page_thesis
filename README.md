@@ -1,7 +1,6 @@
 # new_page_thesis
 
-# This tool can be added to the root of your project
-## Copy This Code
+## Copy this code to the root of your project and save it in a .rb file
 ```
 # program to create new files in ruby and puts them in correct directory
 def new_page_setup(page_name)
