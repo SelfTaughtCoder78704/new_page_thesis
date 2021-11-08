@@ -26,11 +26,30 @@ def new_template_setup(template_name, shared_content = false)
     return
   end
 end
+
+def new_javascript_component(component_name, code)
+  File.open("#{Dir.pwd}/app/assets/javascripts/components/#{component_name}.js", "w+") {|f| f.write("#{code}") }
+  puts "#{component_name}.js created."
+end
+
+# def multi_gets all_text=""
+#   while (text = gets) != "\n"
+#     all_text << text
+#   end
+#   all_text
+# end
     
+def multi_gets all_text=""
+  while all_text << STDIN.gets
+    return all_text if all_text["\n\n"]
+  end
+end
+
 def start
   puts "What would you like to create?"
   puts "1. New Page"
   puts "2. New Template"
+  puts "3. New Javascript Component"
   puts "3. Exit"
   answer = gets.chomp
   if answer == "1"
@@ -48,6 +67,12 @@ def start
       new_template_setup(template_name) 
     end
   elsif answer == "3"
+    puts "What is the name of the javascript component?"
+    component_name = gets.chomp
+    puts "Paste your javascript in then hit ENTER twice."
+    code = multi_gets
+    new_javascript_component(component_name, code)
+  elsif answer == "4"
     puts "Goodbye!"              
     exit
   else
