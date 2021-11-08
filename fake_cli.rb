@@ -32,12 +32,6 @@ def new_javascript_component(component_name, code)
   puts "#{component_name}.js created."
 end
 
-# def multi_gets all_text=""
-#   while (text = gets) != "\n"
-#     all_text << text
-#   end
-#   all_text
-# end
     
 def multi_gets all_text=""
   while all_text << STDIN.gets
@@ -69,7 +63,7 @@ def start
   elsif answer == "3"
     puts "What is the name of the javascript component?"
     component_name = gets.chomp
-    puts "Paste your javascript in then hit ENTER twice."
+    puts "If Minified Code: Paste your javascript in then hit ENTER twice. Else hit ENTER twice to skip."
     code = multi_gets
     new_javascript_component(component_name, code)
   elsif answer == "4"
