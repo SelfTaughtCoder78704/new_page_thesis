@@ -20,16 +20,34 @@ def new_page_setup(page_name)
   return
 end
 
-def new_template_setup(template_name)
-  File.open("#{Dir.pwd}/app/views/custom/#{template_name}.html.erb", "w")
-  puts "#{template_name}.html.erb created."
-  return
+def new_template_setup(template_name, shared_content = false)
+  if shared_content
+    File.open("#{Dir.pwd}/app/views/custom/shared/#{template_name}.html.erb", "w")
+    puts "#{template_name}.html.erb created."
+  else
+    File.open("#{Dir.pwd}/app/views/custom/#{template_name}.html.erb", "w")
+    puts "#{template_name}.html.erb created."
+    return
+  end
 end
+
+def new_javascript_component(component_name, code)
+  File.open("#{Dir.pwd}/app/assets/javascripts/components/#{component_name}.js", "w+") {|f| f.write("#{code}") }
+  puts "#{component_name}.js created."
+end
+
     
+def multi_gets all_text=""
+  while all_text << STDIN.gets
+    return all_text if all_text["\n\n"]
+  end
+end
+
 def start
   puts "What would you like to create?"
   puts "1. New Page"
   puts "2. New Template"
+  puts "3. New Javascript Component"
   puts "3. Exit"
   answer = gets.chomp
   if answer == "1"
@@ -39,9 +57,21 @@ def start
   elsif answer == "2"
     puts "What is the name of the template?"
     template_name = gets.chomp
-    new_template_setup(template_name)
+    puts "Is this a shared template? (y/n)"
+    shared_answer = gets.chomp
+    if shared_answer == "y"
+      new_template_setup(template_name, true)
+    else
+      new_template_setup(template_name) 
+    end
   elsif answer == "3"
-    puts "Goodbye!"
+    puts "What is the name of the javascript component?"
+    component_name = gets.chomp
+    puts "Paste your javascript in then hit ENTER twice."
+    code = multi_gets
+    new_javascript_component(component_name, code)
+  elsif answer == "4"
+    puts "Goodbye!"              
     exit
   else
     puts "Invalid input."
