@@ -16,10 +16,15 @@ def new_page_setup(page_name)
   return
 end
 
-def new_template_setup(template_name)
-  File.open("#{Dir.pwd}/app/views/custom/#{template_name}.html.erb", "w")
-  puts "#{template_name}.html.erb created."
-  return
+def new_template_setup(template_name, shared_content = false)
+  if shared_content
+    File.open("#{Dir.pwd}/app/views/custom/shared/#{template_name}.html.erb", "w")
+    puts "#{template_name}.html.erb created."
+  else
+    File.open("#{Dir.pwd}/app/views/custom/#{template_name}.html.erb", "w")
+    puts "#{template_name}.html.erb created."
+    return
+  end
 end
     
 def start
@@ -35,9 +40,15 @@ def start
   elsif answer == "2"
     puts "What is the name of the template?"
     template_name = gets.chomp
-    new_template_setup(template_name)
+    puts "Is this a shared template? (y/n)"
+    shared_answer = gets.chomp
+    if shared_answer == "y"
+      new_template_setup(template_name, true)
+    else
+      new_template_setup(template_name) 
+    end
   elsif answer == "3"
-    puts "Goodbye!"
+    puts "Goodbye!"              
     exit
   else
     puts "Invalid input."
