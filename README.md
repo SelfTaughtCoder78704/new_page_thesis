@@ -67,7 +67,7 @@ def start
   elsif answer == "3"
     puts "What is the name of the javascript component?"
     component_name = gets.chomp
-    puts "Paste your javascript in then hit ENTER twice."
+    puts "If Minified Code: Paste your javascript in then hit ENTER twice. Else hit ENTER twice to skip."
     code = multi_gets
     new_javascript_component(component_name, code)
   elsif answer == "4"
